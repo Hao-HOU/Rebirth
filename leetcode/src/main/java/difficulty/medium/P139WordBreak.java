@@ -1,5 +1,6 @@
 package difficulty.medium;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,10 +10,25 @@ import java.util.List;
  */
 public class P139WordBreak {
     public static void main(String[] args) {
-
+        String s = "leetcode";
+        List<String> words = new ArrayList<>();
+        words.add("leet");
+        words.add("code");
+        System.out.println(wordBreak(s, words));
     }
 
     private static boolean wordBreak(String s, List<String> wordDict) {
-        return false;
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 0; j < i; j++) {
+                if (dp[j] && wordDict.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+
+        return dp[s.length()];
     }
 }
